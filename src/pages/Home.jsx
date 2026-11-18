@@ -1,118 +1,38 @@
 import { motion } from "framer-motion";
-import BlueprintBackground from "../components/BlueprintBackground";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import clients from "../data/clients";
-import projects from "../data/projects";
-import ProjectCard from "../components/ProjectCard";
-import logo from "../assets/logo.png";
 
-function Home() {
-  return (
-    <div className="bg-charcoal-900 text-white">
-      {/* HERO SECTION */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-        <BlueprintBackground />
-
-        <motion.img
-          src={logo}
-          alt="Vertex 360 Logo"
-          className="w-24 h-24 mb-6 relative z-10"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        />
-
-        <motion.h1
-          className="text-5xl md:text-6xl font-bold tracking-tight relative z-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Vertex 360
-        </motion.h1>
-
-        <motion.p
-          className="mt-6 max-w-2xl text-lg text-silver-300 relative z-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          We bring architectural visions to life — delivering precise 3D
-          modeling, detailed plan drawings, and physical scale models for
-          construction companies who demand accuracy and craft.
-        </motion.p>
-
-        <motion.span
-          className="mt-6 inline-block px-4 py-1 border border-gold-400/40 rounded-full text-sm text-gold-300 relative z-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          Est. 2026
-        </motion.span>
-      </section>
-
-      {/* CLIENTS SECTION */}
-      <section className="py-20 px-6">
-        <motion.h2
-          className="text-center text-sm uppercase tracking-widest text-silver-500 mb-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          Trusted by construction companies
-        </motion.h2>
-
-        <div className="flex flex-wrap justify-center gap-8 max-w-5xl mx-auto">
-          {clients.map((client, i) => (
-            <motion.div
-              key={client.name}
-              className="flex flex-col items-center gap-3 w-40"
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <div className="bg-white rounded-xl w-full h-20 flex items-center justify-center p-3 shadow-md">
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="max-h-full max-w-full object-contain"
-                />
-              </div>
-              <p className="text-xs text-silver-500 text-center leading-tight">
-                {client.service}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* PROJECTS SECTION */}
-      <section className="py-24 px-6 max-w-6xl mx-auto">
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Featured Projects
-          </h2>
-          <p className="text-silver-400 mt-3 max-w-xl mx-auto">
-            A glimpse into the designs, drawings, and models we've delivered
-            for our construction partners.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
-        </div>
-      </section>
-    </div>
-  );
+const projects = [
+ {title:"Contemporary Residence",category:"3D Visualisation",description:"Exterior visualisation exploring form, material and light.",image:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85"},
+ {title:"Modern Living Spaces",category:"Interior Visualisation",description:"A considered interior concept brought to life through detailed imagery.",image:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85"},
+ {title:"Architectural Detail",category:"Design Development",description:"Materiality and architectural detail presented with clarity.",image:"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85"},
+ {title:"Residential Architecture",category:"3D Modelling",description:"A complete visual story to support design reviews and presentations.",image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1400&q=85"}
+];
+const services = [
+ ["01","3D Modelling","Accurate exterior and interior 3D visualisations that help clients understand a design before construction begins."],
+ ["02","Plan Drawings","Clear, detailed architectural floor plans and layouts prepared to support project planning and communication."],
+ ["03","Physical Scale Models","Carefully crafted physical models for presentations, client approvals and investor discussions."]
+];
+const reveal={initial:{opacity:0,y:24},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.15},transition:{duration:.65}};
+export default function Home(){
+ return <main>
+  <section className="hero-home"><div className="container"><motion.div className="hero-content" initial={{opacity:0,y:28}} animate={{opacity:1,y:0}} transition={{duration:.8}}>
+   <div className="hero-kicker">Architectural visualisation · Sri Lanka</div>
+   <h1>See the vision.<br/><span>Shape the future.</span></h1>
+   <p className="hero-lead">We transform architectural concepts into precise 3D visualisations, detailed plan drawings and physical scale models — helping construction teams communicate ideas with confidence.</p>
+   <div className="hero-actions"><Link to="/contact" className="btn-primary">START A CONVERSATION <ArrowUpRight size={16}/></Link><Link to="/project-flow" className="btn-outline">EXPLORE OUR PROCESS <ArrowRight size={15}/></Link></div>
+   <div className="hero-footnote"><div><strong>360°</strong>Visual thinking</div><div><strong>03</strong>Core services</div><div><strong>01</strong>Clear standard of craft</div></div>
+  </motion.div></div></section>
+  <section className="trust-strip"><div className="container trust-inner"><div className="trust-label">A partner in bringing ideas to life</div>{clients.map(c=><div className="client-logo" key={c.name}><img src={c.logo} alt={c.name}/></div>)}</div></section>
+  <section className="section-pad"><div className="container">
+   <motion.div className="section-heading" {...reveal}><div><span className="eyebrow">Selected work</span><h2>Ideas made visible.<br/>Details made meaningful.</h2></div><p>A glimpse into architectural visualisation, drawings and physical models created to help communicate a design with clarity.</p></motion.div>
+   <div className="project-grid">{projects.map((p,i)=><motion.article className="project-item" key={p.title} {...reveal} transition={{duration:.65,delay:i*.08}}><img className="project-image" src={p.image} alt={p.title}/><div className="project-meta"><small>{p.category}</small><h3>{p.title}</h3><p>{p.description}</p></div></motion.article>)}</div>
+  </div></section>
+  <section className="section-pad" style={{background:"#151716"}}><div className="container">
+   <motion.div className="section-heading" {...reveal}><div><span className="eyebrow">What we do</span><h2>From technical detail<br/>to tangible vision.</h2></div><p>Three complementary services. One consistent focus on precision, presentation and thoughtful collaboration.</p></motion.div>
+   <div className="services-grid">{services.map(([n,t,d],i)=><motion.div className="service-item" key={n} {...reveal} transition={{duration:.6,delay:i*.1}}><span className="service-num">{n} / SERVICE</span><h3>{t}</h3><p>{d}</p></motion.div>)}</div>
+  </div></section>
+  <section className="cta-band"><div className="container cta-inner"><div><h2>Have a project taking shape?</h2><p>Share your brief with us. Let’s explore how we can help turn your ideas into clear, buildable visuals.</p></div><Link to="/contact" className="btn-dark">LET'S TALK <ArrowUpRight size={15} style={{display:"inline",verticalAlign:"middle"}}/></Link></div></section>
+ </main>;
 }
-export default Home;
